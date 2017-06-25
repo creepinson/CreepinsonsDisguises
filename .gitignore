@@ -14,15 +14,10 @@ out
 .idea
 
 
-
-
-/eclipse
-
-/libs
-
-/out
-
-/.gradle
-
-/build
+run
+eclipse
+libs
+out
+.gradle
+build
 
