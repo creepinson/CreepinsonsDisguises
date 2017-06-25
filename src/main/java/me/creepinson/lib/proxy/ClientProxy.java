@@ -52,7 +52,11 @@ public class ClientProxy extends CommonProxy {
 		         }
 		    });
 			
-			
+			RenderingRegistry.registerEntityRenderingHandler(EntityPlayer.class, new IRenderFactory(){@Override
+		        public Render createRenderFor(RenderManager manager) { 
+		            return RenderDisguises.player;
+		         }
+		    });
 			
 			
 			NetworkRegistry.INSTANCE.registerGuiHandler(CreepzDisguises.instance, new GuiHandler());

@@ -4,17 +4,17 @@ import net.minecraft.client.renderer.entity.RenderLivingBase;
 
 public class Disguise  implements IDisguise
 {
-protected int render;
+protected int id;
 
 @Override
-public int getRender() 
+public int getID() 
 {
-	return render;
+	return id;
 }
 
 @Override
-public void setRender(int render) 
+public void setID(int id) 
 {
-	this.render = render;
+	this.id = id;
 }
 }

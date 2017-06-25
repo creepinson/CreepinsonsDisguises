@@ -57,7 +57,7 @@ public static CreepzDisguises instance;
     public void init(FMLInitializationEvent event)
     {
         INSTANCE.registerMessage(PacketHandler.class, CustomPacket.class, 0, Side.SERVER);
-  
+        CapabilityManager.INSTANCE.register(IDisguise.class, new DisguiseStorage(),  Disguise.class);
     	Utils.getLogger().info("Init");
     	FMLCommonHandler.instance().bus().register(new me.creepinson.handler.event.EventHandler());
     	MinecraftForge.EVENT_BUS.register(new me.creepinson.handler.event.EventHandler());

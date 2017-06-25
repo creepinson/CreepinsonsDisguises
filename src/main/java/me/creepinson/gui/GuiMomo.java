@@ -25,6 +25,9 @@ public class GuiMomo extends GuiScreen {
 	
 	public static GuiDisguiseButton type3;
 	
+	public static GuiSliderFixed type;
+	
+
 
 
 	public static final ResourceLocation resource = new ResourceLocation(Utils.MODID, "textures/gui/momo.png");
@@ -46,7 +49,7 @@ public class GuiMomo extends GuiScreen {
     	type3 = this.addButton(new GuiDisguiseButton(2, i, j + 50, 150, 20, "Change Disguise to Creeper"));
      	type3.visible = true;
      	type3.enabled = true;
-    	
+  
     	
 		super.initGui();  
 		
@@ -88,18 +91,19 @@ public void onGuiClosed() {
 		super.actionPerformed(button);
 		
 		if (button.id == 1) {
-
-			CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(1));
 			
+			CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(1));
+			RenderHelper.currentRender = RenderHelper.getRenderFromID(1);
 			}
 			if (button.id == 2) {
-				CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(0));
+				CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(2));
+				RenderHelper.currentRender = RenderHelper.getRenderFromID(2);
 
 			}
 			if (button.id == 0) {
 				
-				CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(2));
-				
+				CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(0));
+				RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
 			}
 		}
 }

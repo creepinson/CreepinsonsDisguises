@@ -4,8 +4,8 @@ import net.minecraft.client.renderer.entity.RenderLivingBase;
 
 public interface IDisguise
 	{
-	public int getRender();
-	public void setRender(int render);
+	public int getID();
+	public void setID(int id);
 	}
 
 

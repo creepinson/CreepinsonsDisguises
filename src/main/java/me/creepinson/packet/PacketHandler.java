@@ -8,30 +8,26 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketHandler implements IMessageHandler<CustomPacket, IMessage> {
-	 
-	  @Override public IMessage onMessage(CustomPacket message, MessageContext ctx) {
-	     
-	
-	 switch(message.id){
-	 
-	 case 0:
-			RenderHelper.currentRender = DisguiseTypes.CREEPER.getDisguise();
 
-		 break;
-	 case 1:
-			RenderHelper.currentRender = DisguiseTypes.PIG.getDisguise();
+	@Override
+	public IMessage onMessage(CustomPacket message, MessageContext ctx) {
 
-		 break;
-	 
-	 case 2:
-			RenderHelper.currentRender = DisguiseTypes.PLAYER.getPlayer();
-		 break;
-	 }
-	    return null;
-	  }
+		switch (message.id) {
 
-	  
+		case 0:
+			RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
+
+			break;
+		case 1:
+			RenderHelper.currentRender = RenderHelper.getRenderFromID(1);
+			break;
+
+		case 2:
+			RenderHelper.currentRender = RenderHelper.getRenderFromID(2);
+
+			break;
+		}
+		return null;
 	}
-	 
-	 
 
+}

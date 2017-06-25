@@ -19,7 +19,7 @@ public class DisguiseStorage implements IStorage<IDisguise>
 
  {
 
- return new NBTTagInt(instance.getRender());
+ return new NBTTagInt(instance.getID());
 
  }
 
@@ -31,7 +31,8 @@ public class DisguiseStorage implements IStorage<IDisguise>
 
  {
 
- instance.setRender(RenderHelper.id);
+	 instance.setID(((NBTPrimitive) nbt).getInt());
+
 
  }
 
