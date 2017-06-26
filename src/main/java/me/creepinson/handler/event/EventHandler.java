@@ -16,32 +16,22 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class EventHandler {
 
-	@SubscribeEvent
-	public void playerRenderPre(RenderPlayerEvent.Pre event) {
-		EntityPlayer player = event.getEntityPlayer();
-		IDisguise render = player.getCapability(DisguiseProvider.DISGUISE, null);
-		event.setCanceled(true);
+    @SubscribeEvent
+    public void playerRenderPre(RenderPlayerEvent.Pre event) {
+        EntityPlayer player = event.getEntityPlayer();
+        IDisguise render = player.getCapability(DisguiseProvider.DISGUISE, null);
+        event.setCanceled(true);
         if(render != null) {
-
-            if (render.getID() == event.getEntity().getEntityId()) {
-                if (RenderHelper.currentRender == null) {
-
-                    RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
-
-                } else {
-                    RenderHelper.currentRender.doRender((EntityLivingBase) event.getEntity(), 0, 0, 0, 0, 0);
-                }
-
-            }
-
+            RenderHelper.currentRender = RenderHelper.getRenderFromID(render.getID());
+            RenderHelper.currentRender.doRender((EntityLivingBase) event.getEntity(), 0, 0, 0, 0, 0);
         }
-        }
+    }
 
 	@SubscribeEvent
 	public void playerRenderPost(RenderPlayerEvent.Post event) {
-		RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
-
-		RenderHelper.currentRender.doRender((EntityLivingBase) event.getEntity(), 0, 0, 0, 0, 0);
+//		RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
+//
+//		RenderHelper.currentRender.doRender((EntityLivingBase) event.getEntity(), 0, 0, 0, 0, 0);
 		//
 		// if (Minecraft.getMinecraft().thePlayer.equals(event.getEntity())) {
 		//

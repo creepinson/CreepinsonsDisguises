@@ -4,14 +4,9 @@ import java.io.IOException;
 
 import org.lwjgl.input.Keyboard;
 
-import me.creepinson.capability.Disguise;
+import me.creepinson.capability.DisguiseProvider;
 import me.creepinson.capability.IDisguise;
-import me.creepinson.core.CreepzDisguises;
-import me.creepinson.handler.event.EventHandler;
 import me.creepinson.lib.util.Utils;
-import me.creepinson.lib.util.disguise.DisguiseTypes;
-import me.creepinson.lib.util.render.RenderHelper;
-import me.creepinson.packet.CustomPacket;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
@@ -27,7 +22,8 @@ public class GuiMomo extends GuiScreen {
 	
 	public static GuiSliderFixed type;
 	
-
+	IDisguise disguiseInstance;
+	int disguiseId;
 
 
 	public static final ResourceLocation resource = new ResourceLocation(Utils.MODID, "textures/gui/momo.png");
@@ -35,7 +31,9 @@ public class GuiMomo extends GuiScreen {
 
 	@Override
 	public void initGui() {
-	     
+	    disguiseInstance = mc.thePlayer.getCapability(DisguiseProvider.DISGUISE, null);
+	    disguiseId = disguiseInstance.getID();
+	    
 		int i = (this.width - 248) / 2;
 		int j = (this.height - 166) / 2;
         this.buttonList.clear();
@@ -50,11 +48,7 @@ public class GuiMomo extends GuiScreen {
      	type3.visible = true;
      	type3.enabled = true;
   
-    	
-		super.initGui();  
-		
-		
-		
+		super.initGui();  		
 	}
 	
 
@@ -82,7 +76,7 @@ public void onGuiClosed() {
 		int i = (this.width - 248) / 2;
 		int j = (this.height - 166) / 2;
 		this.drawTexturedModalRect(i, j, 0, 0, 248, 166);
-		 super.drawScreen(mouseX, mouseY, partialTicks);
+		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 	
 
@@ -91,19 +85,21 @@ public void onGuiClosed() {
 		super.actionPerformed(button);
 		
 		if (button.id == 1) {
-			
-			CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(1));
-			RenderHelper.currentRender = RenderHelper.getRenderFromID(1);
-			}
-			if (button.id == 2) {
-				CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(2));
-				RenderHelper.currentRender = RenderHelper.getRenderFromID(2);
-
-			}
-			if (button.id == 0) {
-				
-				CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(0));
-				RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
-			}
+//		    	CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(1));
+//		    	RenderHelper.currentRender = RenderHelper.getRenderFromID(1);
+		    disguiseInstance.setID(1);
 		}
+		if (button.id == 2) {
+//				CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(2));
+//				RenderHelper.currentRender = RenderHelper.getRenderFromID(2);
+		    disguiseInstance.setID(2);
+		}
+		if (button.id == 0) {
+//		        CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(0));
+//				RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
+		    disguiseInstance.setID(0);
+		}
+        mc.displayGuiScreen(null);
+        mc.setIngameFocus();
+	}
 }
