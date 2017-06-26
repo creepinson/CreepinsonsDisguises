@@ -3,7 +3,6 @@ import java.util.Random;
 import java.util.concurrent.Callable;
 
 import me.creepinson.capability.Disguise;
-import me.creepinson.capability.DisguiseFactory;
 import me.creepinson.capability.DisguiseStorage;
 import me.creepinson.capability.IDisguise;
 import me.creepinson.handler.KeysHandler;
@@ -59,7 +58,6 @@ public static CreepzDisguises instance;
         INSTANCE.registerMessage(PacketHandler.class, CustomPacket.class, 0, Side.SERVER);
         CapabilityManager.INSTANCE.register(IDisguise.class, new DisguiseStorage(),  Disguise.class);
     	Utils.getLogger().info("Init");
-    	FMLCommonHandler.instance().bus().register(new me.creepinson.handler.event.EventHandler());
     	MinecraftForge.EVENT_BUS.register(new me.creepinson.handler.event.EventHandler());
     	FMLCommonHandler.instance().bus().register(new KeysHandler());
     	proxy.init();
