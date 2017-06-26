@@ -18,33 +18,24 @@ public class EventHandler {
 
 	@SubscribeEvent
 	public void playerRenderPre(RenderPlayerEvent.Pre event) {
-
+		EntityPlayer player = event.getEntityPlayer();
+		IDisguise render = player.getCapability(DisguiseProvider.DISGUISE, null);
 		event.setCanceled(true);
-		if (Minecraft.getMinecraft().thePlayer.equals(event.getEntity())) {
+        if(render != null) {
 
-			if (RenderHelper.currentRender == null) {
+            if (render.getID() == event.getEntity().getEntityId()) {
+                if (RenderHelper.currentRender == null) {
 
-				RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
+                    RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
 
-			} else {
-				RenderHelper.currentRender.doRender((EntityLivingBase) event.getEntity(), 0, 0, 0, 0, 0);
-			}
+                } else {
+                    RenderHelper.currentRender.doRender((EntityLivingBase) event.getEntity(), 0, 0, 0, 0, 0);
+                }
 
-		}
+            }
 
-		else {
-
-			if (RenderHelper.currentRender == null) {
-
-				RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
-
-			} else {
-				RenderHelper.currentRender.doRender((EntityLivingBase) Minecraft.getMinecraft().thePlayer, 0, 0, 0, 0,
-						0);
-			}
-
-		}
-	}
+        }
+        }
 
 	@SubscribeEvent
 	public void playerRenderPost(RenderPlayerEvent.Post event) {
@@ -92,8 +83,9 @@ public class EventHandler {
 
 	{
 
-		if (!(event.getEntity() instanceof EntityPlayer))
+		if (!(event.getEntity() instanceof EntityPlayer)) {
 			return;
+		}
 
 		if (event.getEntity().hasCapability(DisguiseProvider.DISGUISE, null)) {
 			System.out.println("Player already has capability");
