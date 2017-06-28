@@ -57,20 +57,27 @@ public class ClientProxy extends CommonProxy {
 		            return RenderDisguises.player;
 		         }
 		    });
-			
-			
-			NetworkRegistry.INSTANCE.registerGuiHandler(CreepzDisguises.instance, new GuiHandler());
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityPlayer.class, new IRenderFactory(){@Override
+		public Render createRenderFor(RenderManager manager) {
+			return RenderDisguises.enderman;
+		}
+		});
+
+		NetworkRegistry.INSTANCE.registerGuiHandler(CreepzDisguises.instance, new GuiHandler());
 			
 			
 			//KEYBINDS
 
 			// declare an array of key bindings
-			keyBindings = new KeyBinding[1]; 
+			keyBindings = new KeyBinding[3];
 			  
 			// instantiate the key bindings
 			keyBindings[0] = new KeyBinding("Open Disguise Menu", Keyboard.KEY_GRAVE, "GUI");
-		    	    
-			// register all the key bindings
+		keyBindings[1] = new KeyBinding("Teleport", Keyboard.KEY_T, "DISGUISE SPECIAL ABILITIES");
+		keyBindings[2] = new KeyBinding("Explode", Keyboard.KEY_P, "DISGUISE SPECIAL ABILITIES");
+
+		// register all the key bindings
 			for (int i = 0; i < keyBindings.length; ++i) 
 			{
 			    ClientRegistry.registerKeyBinding(keyBindings[i]);

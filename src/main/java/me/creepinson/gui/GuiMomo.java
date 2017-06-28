@@ -2,6 +2,7 @@ package me.creepinson.gui;
 
 import java.io.IOException;
 
+import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
 import me.creepinson.capability.DisguiseProvider;
@@ -47,8 +48,11 @@ public class GuiMomo extends GuiScreen {
     	type3 = this.addButton(new GuiDisguiseButton(2, i, j + 50, 150, 20, "Change Disguise to Creeper"));
      	type3.visible = true;
      	type3.enabled = true;
-  
-		super.initGui();  		
+        type3 = this.addButton(new GuiDisguiseButton(3, i, j + 75, 150, 20, "Change Disguise to Enderman"));
+        type3.visible = true;
+        type3.enabled = true;
+
+        super.initGui();
 	}
 	
 
@@ -85,19 +89,28 @@ public void onGuiClosed() {
 		super.actionPerformed(button);
 		
 		if (button.id == 1) {
-//		    	CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(1));
+//		    	CreepzDisguises.INSTANCE.sendToServer(new CreepPacket(1));
 //		    	RenderHelper.currentRender = RenderHelper.getRenderFromID(1);
 		    disguiseInstance.setID(1);
+		    Utils.disguised.add(Minecraft.getMinecraft().thePlayer.getPersistentID());
 		}
 		if (button.id == 2) {
-//				CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(2));
+//				CreepzDisguises.INSTANCE.sendToServer(new CreepPacket(2));
 //				RenderHelper.currentRender = RenderHelper.getRenderFromID(2);
 		    disguiseInstance.setID(2);
-		}
+            Utils.disguised.add(Minecraft.getMinecraft().thePlayer.getPersistentID());
+        }
+		if (button.id == 3) {
+//				CreepzDisguises.INSTANCE.sendToServer(new CreepPacket(2));
+//				RenderHelper.currentRender = RenderHelper.getRenderFromID(2);
+			disguiseInstance.setID(3);
+            Utils.disguised.add(Minecraft.getMinecraft().thePlayer.getPersistentID());
+        }
 		if (button.id == 0) {
-//		        CreepzDisguises.INSTANCE.sendToServer(new CustomPacket(0));
+//		        CreepzDisguises.INSTANCE.sendToServer(new CreepPacket(0));
 //				RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
 		    disguiseInstance.setID(0);
+			Utils.disguised.remove(Minecraft.getMinecraft().thePlayer.getPersistentID());
 		}
         mc.displayGuiScreen(null);
         mc.setIngameFocus();

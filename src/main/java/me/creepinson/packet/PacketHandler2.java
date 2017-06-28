@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketHandler implements IMessageHandler<CreepPacket, IMessage> {
+public class PacketHandler2 implements IMessageHandler<CreepPacket, IMessage> {
 
 	@Override
 	public IMessage onMessage(CreepPacket message, MessageContext ctx) {

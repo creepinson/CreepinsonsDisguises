@@ -5,8 +5,11 @@ import org.apache.logging.log4j.Logger;
 
 import me.creepinson.lib.util.render.RenderHelper;
 
-public class Utils {
+import java.util.HashSet;
+import java.util.UUID;
 
+public class Utils {
+	public static HashSet<UUID> disguised = new HashSet<UUID>();
 	
 //MAIN MOD STUFF
     public static final String MODID = "creepzdisguises";

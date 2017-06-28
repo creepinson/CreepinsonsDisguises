@@ -11,7 +11,7 @@ bobView:true
 anaglyph3d:false
 maxFps:120
 fboEnable:true
-difficulty:1
+difficulty:2
 fancyGraphics:false
 ao:0
 renderClouds:false
@@ -50,7 +50,7 @@ attackIndicator:1
 showSubtitles:false
 realmsNotifications:true
 enableWeakAttacks:false
-autoJump:true
+autoJump:false
 key_key.attack:-100
 key_key.use:-99
 key_key.forward:17
@@ -60,9 +60,9 @@ key_key.right:32
 key_key.jump:57
 key_key.sneak:42
 key_key.sprint:29
-key_key.drop:16
+key_key.drop:45
 key_key.inventory:18
-key_key.chat:20
+key_key.chat:46
 key_key.playerlist:15
 key_key.pickItem:-98
 key_key.command:53
@@ -82,6 +82,8 @@ key_key.hotbar.7:8
 key_key.hotbar.8:9
 key_key.hotbar.9:10
 key_Open Disguise Menu:41
+key_Teleport:20
+key_Explode:25
 soundCategory_master:1.0
 soundCategory_music:0.0
 soundCategory_record:1.0

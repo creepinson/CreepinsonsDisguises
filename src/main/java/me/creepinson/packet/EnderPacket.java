@@ -6,27 +6,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
-public class CustomPacket2 implements IMessage {
+public class EnderPacket implements IMessage {
 
-	public static World world;
 
-	public static BlockPos pos;
 
-	// A default constructor is always required
-	public CustomPacket2(World worldIn, BlockPos pos) {
-		this.pos = pos;
 
-		this.world = worldIn;
-	}
-
-	public CustomPacket2() {
+	public EnderPacket() {
 
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
 
-		buf.writeLong(pos.toLong());
+
 
 	}
 
@@ -35,7 +27,7 @@ public class CustomPacket2 implements IMessage {
 		// Reads the int back from the buf. Note that if you have multiple
 		// values, you must read in the same order you wrote.
 
-		pos = BlockPos.fromLong(buf.readLong());
+
 
 	}
 }
