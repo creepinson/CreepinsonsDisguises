@@ -4,6 +4,7 @@ import me.creepinson.core.CreepzDisguises;
 import me.creepinson.lib.proxy.ClientProxy;
 import me.creepinson.lib.util.render.RenderHelper;
 import me.creepinson.packet.CreepPacket;
+import me.creepinson.packet.EnderPacket;
 import me.creepinson.render.disguise.RenderDisguises;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -31,13 +32,12 @@ public class KeysHandler {
         }
         if (RenderHelper.currentRender == RenderDisguises.enderman) {
             if (keyBindings[1].isPressed()) {
-                CreepzDisguises.INSTANCE.sendToServer(new CreepPacket());
+                CreepzDisguises.INSTANCE.sendToServer(new EnderPacket());
             }
             if (RenderHelper.currentRender == RenderDisguises.creeper) {
                 if (keyBindings[2].isPressed()) {
                     CreepzDisguises.INSTANCE.sendToServer(new CreepPacket());
-                    player.worldObj.createExplosion(player, player.posX, player.posY, player.posZ, 5, false);
-                    player.attackEntityFrom(DamageSource.outOfWorld, Float.MAX_VALUE);
+
                 }
             }
         }

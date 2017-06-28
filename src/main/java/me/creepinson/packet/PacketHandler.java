@@ -10,10 +10,10 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketHandler implements IMessageHandler<CreepPacket, IMessage> {
+public class PacketHandler implements IMessageHandler<EnderPacket, IMessage> {
 
 	@Override
-	public IMessage onMessage(CreepPacket message, MessageContext ctx) {
+	public IMessage onMessage(EnderPacket message, MessageContext ctx) {
 
 	    EntityPlayerMP player = ctx.getServerHandler().playerEntity;
 

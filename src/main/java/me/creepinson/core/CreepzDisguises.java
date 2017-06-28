@@ -9,7 +9,9 @@ import me.creepinson.handler.KeysHandler;
 import me.creepinson.lib.proxy.CommonProxy;
 import me.creepinson.lib.util.Utils;
 import me.creepinson.packet.CreepPacket;
+import me.creepinson.packet.EnderPacket;
 import me.creepinson.packet.PacketHandler;
+import me.creepinson.packet.PacketHandler2;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -55,7 +57,8 @@ public static CreepzDisguises instance;
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        INSTANCE.registerMessage(PacketHandler.class, CreepPacket.class, 0, Side.SERVER);
+        INSTANCE.registerMessage(PacketHandler2.class, CreepPacket.class, 0, Side.SERVER);
+        INSTANCE.registerMessage(PacketHandler.class, EnderPacket.class, 1, Side.SERVER);
         CapabilityManager.INSTANCE.register(IDisguise.class, new DisguiseStorage(),  Disguise.class);
     	Utils.getLogger().info("Init");
     	MinecraftForge.EVENT_BUS.register(new me.creepinson.handler.event.EventHandler());

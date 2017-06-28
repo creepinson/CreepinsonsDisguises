@@ -2,6 +2,7 @@ package me.creepinson.packet;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -17,13 +18,8 @@ public class PacketHandler2 implements IMessageHandler<CreepPacket, IMessage> {
 
 	    EntityPlayerMP player = ctx.getServerHandler().playerEntity;
 
-        World world = player.getServerWorld();
-        RayTraceResult ray = player.rayTrace(60, 25);
-        BlockPos pos = ray.getBlockPos();
-        player.setPositionAndUpdate(pos.getX(), pos.getY(), pos.getZ());
-        world.spawnParticle(EnumParticleTypes.PORTAL, pos.getX(), pos.getY(), pos.getZ(), 1, 1, 1);
-        player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 75, 1);
-
+        player.getServerWorld().createExplosion(player, player.posX, player.posY, player.posZ, 5, false);
+        player.attackEntityFrom(DamageSource.outOfWorld, Float.MAX_VALUE);
 
 
 		return null;
