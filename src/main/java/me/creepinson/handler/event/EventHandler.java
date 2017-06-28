@@ -25,7 +25,7 @@ public class EventHandler {
         event.setCanceled(true);
         if (render != null) {
             RenderHelper.currentRender = RenderHelper.getRenderFromID(render.getID());
-            RenderHelper.currentRender.doRender((EntityLivingBase) entity, entity.posX, entity.posY, entity.posZ, entity.rotationYaw, 0);
+            RenderHelper.currentRender.doRender((EntityLivingBase) player, 0,0,0, entity.rotationYaw, 0);
         }
     }
 
