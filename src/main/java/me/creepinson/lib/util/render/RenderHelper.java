@@ -13,42 +13,39 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.Entity;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.UUID;
 
-public class RenderHelper
-{
+public class RenderHelper {
     public static int playerid;
     public static RenderDisguises disguises = new RenderDisguises();
+    public ArrayList<UUID> rendering = new ArrayList<UUID>();
+    public RenderLivingBase currentRender;
 
-    public static RenderLivingBase currentRender;
-
-    public static RenderLivingBase getRenderFromID(int id)
-    {
-        switch (id)
-        {
+    public static RenderLivingBase getRenderFromID(int id) {
+        switch (id) {
             case 0:
-            return RenderDisguises.player;
+                return RenderDisguises.player;
             case 1:
-            return RenderDisguises.pig;
+                return RenderDisguises.pig;
             case 2:
-            return RenderDisguises.creeper;
+                return RenderDisguises.creeper;
             case 3:
-            return RenderDisguises.enderman;
-        default:
-            return RenderDisguises.player;
+                return RenderDisguises.enderman;
+            default:
+                return RenderDisguises.player;
         }
     }
 
 
-    public static boolean isDisguiseActive(){
+    public boolean isDisguiseActive() {
 
         return currentRender != RenderDisguises.player;
 
-        }
-
-
-
-
     }
+
+
+}
 
 

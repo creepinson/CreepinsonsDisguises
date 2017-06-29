@@ -26,7 +26,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-@SideOnly(Side.CLIENT)
+
 public class RenderUnDisguise extends RenderLivingBase<AbstractClientPlayer>
 {
 	

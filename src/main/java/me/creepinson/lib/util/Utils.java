@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.UUID;
 
 public class Utils {
-	public static HashSet<UUID> disguised = new HashSet<UUID>();
+	public static RenderHelper renderUtils = new RenderHelper();
 	
 //MAIN MOD STUFF
     public static final String MODID = "creepzdisguises";

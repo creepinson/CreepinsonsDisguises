@@ -35,23 +35,13 @@ public class EventHandler {
         ModelPlayer model = event.getRenderer().getMainModel();
         RenderPlayer renderP = (RenderPlayer) event.getRenderer();
         event.setCanceled(true);
-
-        RenderHelper.currentRender = RenderHelper.getRenderFromID(render.getID());
-
-        if (RenderHelper.currentRender == RenderDisguises.enderman) {
-
+        if (Utils.renderUtils.currentRender == RenderDisguises.enderman) {
             player.eyeHeight = 2.62f;
-
         } else {
-
             player.eyeHeight = 1.62f;
-
         }
-
-
-        RenderHelper.currentRender.doRender((EntityLivingBase) player, 0, 0, 0, entity.rotationYaw, 1);
-
-
+        Utils.renderUtils.currentRender = RenderHelper.getRenderFromID(render.getID());
+        Utils.renderUtils.currentRender.doRender((EntityLivingBase) player, 0, 0, 0, entity.rotationYaw, 1);
     }
 
     @SubscribeEvent
