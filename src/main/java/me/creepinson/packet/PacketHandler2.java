@@ -18,7 +18,7 @@ public class PacketHandler2 implements IMessageHandler<CreepPacket, IMessage> {
 
 	    EntityPlayerMP player = ctx.getServerHandler().playerEntity;
 
-        player.getServerWorld().createExplosion(player, player.posX, player.posY, player.posZ, 5, false);
+        player.getServerWorld().createExplosion(player, player.posX, player.posY, player.posZ, 3, false);
         player.attackEntityFrom(DamageSource.outOfWorld, Float.MAX_VALUE);
 
 

@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderDisguise extends RenderLivingBase
@@ -19,8 +20,7 @@ public class RenderDisguise extends RenderLivingBase
 
 
 
-    
-	@Override
+    @Override
 	protected ResourceLocation getEntityTexture(Entity entity) {
 		
 		return texture;

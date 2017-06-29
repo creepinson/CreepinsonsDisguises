@@ -4,68 +4,59 @@ import me.creepinson.capability.DisguiseProvider;
 import me.creepinson.capability.IDisguise;
 import me.creepinson.lib.util.Utils;
 import me.creepinson.lib.util.render.RenderHelper;
+import me.creepinson.render.disguise.RenderDisguises;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelPlayer;
+import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EventHandler {
 
-    @SubscribeEvent
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void playerRenderPre(RenderPlayerEvent.Pre event) {
         EntityPlayer player = event.getEntityPlayer();
         Entity entity = event.getEntity();
         IDisguise render = player.getCapability(DisguiseProvider.DISGUISE, null);
+        ModelPlayer model = event.getRenderer().getMainModel();
+        RenderPlayer renderP = (RenderPlayer) event.getRenderer();
         event.setCanceled(true);
-        if (render != null) {
-            RenderHelper.currentRender = RenderHelper.getRenderFromID(render.getID());
-            RenderHelper.currentRender.doRender((EntityLivingBase) player, 0,0,0, entity.rotationYaw, 0);
+
+        RenderHelper.currentRender = RenderHelper.getRenderFromID(render.getID());
+
+        if (RenderHelper.currentRender == RenderDisguises.enderman) {
+
+            player.eyeHeight = 2.62f;
+
+        } else {
+
+            player.eyeHeight = 1.62f;
+
         }
+
+
+        RenderHelper.currentRender.doRender((EntityLivingBase) player, 0, 0, 0, entity.rotationYaw, 1);
+
+
     }
 
     @SubscribeEvent
     public void playerRenderPost(RenderPlayerEvent.Post event) {
-//		RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
-//
-//		RenderHelper.currentRender.doRender((EntityLivingBase) event.getEntity(), 0, 0, 0, 0, 0);
-        //
-        // if (Minecraft.getMinecraft().thePlayer.equals(event.getEntity())) {
-        //
-        // if (RenderHelper.currentRender == null) {
-        //
-        // RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
-        //
-        // } else {
-        // RenderHelper.currentRender.doRender((EntityLivingBase)
-        // event.getEntity(), 0, 0, 0, 0, 0);
-        // }
-        //
-        // }
-        //
-        // else {
-        //
-        // if (RenderHelper.currentRender == null) {
-        //
-        // RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
-        //
-        // } else {
-        // RenderHelper.currentRender.doRender((EntityLivingBase)
-        // Minecraft.getMinecraft().thePlayer, 0, 0, 0, 0,
-        // 0);
-        // }
-        //
-        // }
-        //
-        // EntityPlayer player = (EntityPlayer) event.getEntity();
-        // EntityLivingBase living = (EntityLivingBase)
-        // event.getEntity().getEntityWorld()
-        // .getEntityByID(player.getEntityId());
+
 
     }
 
@@ -83,7 +74,7 @@ public class EventHandler {
             System.out.println("Player already has capability");
             return;
         }
-        event.addCapability(new ResourceLocation(Utils.MODID, "idisguise"), new DisguiseProvider());
+        event.addCapability(new ResourceLocation(Utils.MODID, "disguisecapability"), new DisguiseProvider());
 
     }
 
@@ -99,7 +90,8 @@ public class EventHandler {
 
         IDisguise oldRender = event.getOriginal().getCapability(DisguiseProvider.DISGUISE, null);
 
-        render.setID(oldRender.getID());
-
+        if (event.isWasDeath()) {
+            render.setID(oldRender.getID());
+        }
     }
 }

@@ -1,7 +1,9 @@
 package me.creepinson.handler;
 
+import me.creepinson.capability.DisguiseProvider;
 import me.creepinson.core.CreepzDisguises;
 import me.creepinson.lib.proxy.ClientProxy;
+import me.creepinson.lib.util.config.ConfigUtils;
 import me.creepinson.lib.util.render.RenderHelper;
 import me.creepinson.packet.CreepPacket;
 import me.creepinson.packet.EnderPacket;
@@ -27,17 +29,23 @@ public class KeysHandler {
         KeyBinding[] keyBindings = ClientProxy.keyBindings;
 
 
-        if (keyBindings[0].isPressed()) {
-            player.openGui(CreepzDisguises.instance, GuiHandler.MOMO, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
-        }
-        if (RenderHelper.currentRender == RenderDisguises.enderman) {
-            if (keyBindings[1].isPressed()) {
-                CreepzDisguises.INSTANCE.sendToServer(new EnderPacket());
+        if (player.getCapability(DisguiseProvider.DISGUISE, null) != null) {
+            if (keyBindings[0].isPressed()) {
+                player.openGui(CreepzDisguises.instance, GuiHandler.MOMO, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
             }
-            if (RenderHelper.currentRender == RenderDisguises.creeper) {
-                if (keyBindings[2].isPressed()) {
-                    CreepzDisguises.INSTANCE.sendToServer(new CreepPacket());
+            if (ConfigUtils.teleportEnabled) {
+                if (player.getCapability(DisguiseProvider.DISGUISE, null).getID() == 3) {
+                    if (keyBindings[1].isPressed()) {
+                        CreepzDisguises.INSTANCE.sendToServer(new EnderPacket());
+                    }
+                }
+            }
+            if (ConfigUtils.explodeEnabled) {
+                if (player.getCapability(DisguiseProvider.DISGUISE, null).getID() == 2) {
+                    if (keyBindings[2].isPressed()) {
+                        CreepzDisguises.INSTANCE.sendToServer(new CreepPacket());
 
+                    }
                 }
             }
         }

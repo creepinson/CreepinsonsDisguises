@@ -1,8 +1,19 @@
 package me.creepinson.lib.util.render;
 
+import me.creepinson.lib.util.Utils;
 import me.creepinson.render.disguise.RenderDisguise;
 import me.creepinson.render.disguise.RenderDisguises;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelPlayer;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.entity.Entity;
+
+import java.lang.reflect.Field;
+import java.util.Map;
 
 public class RenderHelper
 {
@@ -28,37 +39,13 @@ public class RenderHelper
         }
     }
 
+
     public static boolean isDisguiseActive(){
 
         return currentRender != RenderDisguises.player;
 
         }
 
-    public static boolean isDisguiseActive(RenderDisguise disguise){
-
-        if(disguise == RenderDisguises.creeper) {
-
-            return true;
-
-        }
-        if(disguise == RenderDisguises.enderman) {
-
-            return true;
-
-        }
-         if (disguise == RenderDisguises.pig){
-
-            return true;
-
-        }
-
-    else {
-
-             return false;
-
-         }
-
-    }
 
 
 

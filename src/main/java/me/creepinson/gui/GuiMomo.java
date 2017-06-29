@@ -2,6 +2,8 @@ package me.creepinson.gui;
 
 import java.io.IOException;
 
+import me.creepinson.core.CreepzDisguises;
+import me.creepinson.packet.DisguisePacket;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
@@ -92,25 +94,25 @@ public void onGuiClosed() {
 //		    	CreepzDisguises.INSTANCE.sendToServer(new CreepPacket(1));
 //		    	RenderHelper.currentRender = RenderHelper.getRenderFromID(1);
 		    disguiseInstance.setID(1);
-		    Utils.disguised.add(Minecraft.getMinecraft().thePlayer.getPersistentID());
+			CreepzDisguises.INSTANCE.sendToServer(new DisguisePacket(1));
 		}
 		if (button.id == 2) {
 //				CreepzDisguises.INSTANCE.sendToServer(new CreepPacket(2));
 //				RenderHelper.currentRender = RenderHelper.getRenderFromID(2);
 		    disguiseInstance.setID(2);
-            Utils.disguised.add(Minecraft.getMinecraft().thePlayer.getPersistentID());
+			CreepzDisguises.INSTANCE.sendToServer(new DisguisePacket(2));
         }
 		if (button.id == 3) {
 //				CreepzDisguises.INSTANCE.sendToServer(new CreepPacket(2));
 //				RenderHelper.currentRender = RenderHelper.getRenderFromID(2);
 			disguiseInstance.setID(3);
-            Utils.disguised.add(Minecraft.getMinecraft().thePlayer.getPersistentID());
+            		CreepzDisguises.INSTANCE.sendToServer(new DisguisePacket(3));
         }
 		if (button.id == 0) {
 //		        CreepzDisguises.INSTANCE.sendToServer(new CreepPacket(0));
 //				RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
 		    disguiseInstance.setID(0);
-			Utils.disguised.remove(Minecraft.getMinecraft().thePlayer.getPersistentID());
+			CreepzDisguises.INSTANCE.sendToServer(new DisguisePacket(0));
 		}
         mc.displayGuiScreen(null);
         mc.setIngameFocus();

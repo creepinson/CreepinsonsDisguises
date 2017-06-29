@@ -11,7 +11,7 @@ bobView:true
 anaglyph3d:false
 maxFps:120
 fboEnable:true
-difficulty:2
+difficulty:1
 fancyGraphics:false
 ao:0
 renderClouds:false
@@ -84,10 +84,10 @@ key_key.hotbar.9:10
 key_Open Disguise Menu:41
 key_Teleport:20
 key_Explode:25
-soundCategory_master:1.0
+soundCategory_master:0.4602649
 soundCategory_music:0.0
 soundCategory_record:1.0
-soundCategory_weather:0.0
+soundCategory_weather:1.0
 soundCategory_block:1.0
 soundCategory_hostile:1.0
 soundCategory_neutral:1.0

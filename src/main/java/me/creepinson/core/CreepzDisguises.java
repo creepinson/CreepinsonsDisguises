@@ -8,10 +8,9 @@ import me.creepinson.capability.IDisguise;
 import me.creepinson.handler.KeysHandler;
 import me.creepinson.lib.proxy.CommonProxy;
 import me.creepinson.lib.util.Utils;
-import me.creepinson.packet.CreepPacket;
-import me.creepinson.packet.EnderPacket;
-import me.creepinson.packet.PacketHandler;
-import me.creepinson.packet.PacketHandler2;
+import me.creepinson.lib.util.config.ConfigEventHandler;
+import me.creepinson.lib.util.config.ConfigUtils;
+import me.creepinson.packet.*;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -47,8 +46,9 @@ public static CreepzDisguises instance;
     	movingBlockID = entityID;
 
      	Utils.getLogger().info("Pre Init");
-    	
-    
+
+        ConfigUtils.preInit();
+
     	proxy.preInit();
     	proxy.registerRenderers();
     
@@ -59,8 +59,10 @@ public static CreepzDisguises instance;
     {
         INSTANCE.registerMessage(PacketHandler2.class, CreepPacket.class, 0, Side.SERVER);
         INSTANCE.registerMessage(PacketHandler.class, EnderPacket.class, 1, Side.SERVER);
+        INSTANCE.registerMessage(DisguisePacketHandler.class, DisguisePacket.class, 2, Side.SERVER);
         CapabilityManager.INSTANCE.register(IDisguise.class, new DisguiseStorage(),  Disguise.class);
     	Utils.getLogger().info("Init");
+        MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
     	MinecraftForge.EVENT_BUS.register(new me.creepinson.handler.event.EventHandler());
     	FMLCommonHandler.instance().bus().register(new KeysHandler());
     	proxy.init();
