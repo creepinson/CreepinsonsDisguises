@@ -26,7 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EventHandler {
 
-
+    @SuppressWarnings("unchecked")
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void playerRenderPre(RenderPlayerEvent.Pre event) {
         EntityPlayer player = event.getEntityPlayer();
@@ -41,7 +41,7 @@ public class EventHandler {
             player.eyeHeight = 1.62f;
         }
         Utils.renderUtils.currentRender = RenderHelper.getRenderFromID(render.getID());
-        Utils.renderUtils.currentRender.doRender((EntityLivingBase) player, 0, 0, 0, entity.rotationYaw, 1);
+        Utils.renderUtils.currentRender.doRender((EntityLivingBase) player, 0, 0, 0, 0, 1);
     }
 
     @SubscribeEvent
