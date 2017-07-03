@@ -1,9 +1,7 @@
 package me.creepinson.capability;
 
-import me.creepinson.lib.util.render.RenderHelper;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTPrimitive;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -19,7 +17,7 @@ public class DisguiseStorage implements IStorage<IDisguise>
 
  {
 
- return new NBTTagInt(instance.getID());
+ return new NBTTagInt(instance.getDisguiseID());
 
  }
 
@@ -31,7 +29,7 @@ public class DisguiseStorage implements IStorage<IDisguise>
 
  {
 
-	 instance.setID(((NBTPrimitive) nbt).getInt());
+	 instance.setDisguiseID(((NBTPrimitive) nbt).getInt());
 
 
  }

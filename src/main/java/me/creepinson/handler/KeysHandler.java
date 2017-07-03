@@ -34,14 +34,14 @@ public class KeysHandler {
                 player.openGui(CreepzDisguises.instance, GuiHandler.MOMO, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
             }
             if (ConfigUtils.teleportEnabled) {
-                if (player.getCapability(DisguiseProvider.DISGUISE, null).getID() == 3) {
+                if (player.getCapability(DisguiseProvider.DISGUISE, null).getDisguiseID() == 3) {
                     if (keyBindings[1].isPressed()) {
                         CreepzDisguises.INSTANCE.sendToServer(new EnderPacket());
                     }
                 }
             }
             if (ConfigUtils.explodeEnabled) {
-                if (player.getCapability(DisguiseProvider.DISGUISE, null).getID() == 2) {
+                if (player.getCapability(DisguiseProvider.DISGUISE, null).getDisguiseID() == 2) {
                     if (keyBindings[2].isPressed()) {
                         CreepzDisguises.INSTANCE.sendToServer(new CreepPacket());
 

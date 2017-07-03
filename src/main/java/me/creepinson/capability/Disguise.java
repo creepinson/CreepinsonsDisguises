@@ -5,13 +5,13 @@ public class Disguise  implements IDisguise
     protected int id = 0;
 
     @Override
-    public int getID() 
+    public int getDisguiseID() 
     {
         return id;
     }
 
     @Override
-    public void setID(int id) 
+    public void setDisguiseID(int id) 
     {
         this.id = id;
     }
