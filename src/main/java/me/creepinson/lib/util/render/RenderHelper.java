@@ -20,7 +20,6 @@ import java.util.UUID;
 public class RenderHelper {
     public static int playerid;
     public static RenderDisguises disguises = new RenderDisguises();
-    public ArrayList<UUID> rendering = new ArrayList<UUID>();
     public RenderLivingBase currentRender;
 
     public static RenderLivingBase getRenderFromID(int id) {
