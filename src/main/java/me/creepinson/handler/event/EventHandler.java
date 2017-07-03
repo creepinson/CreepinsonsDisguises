@@ -46,14 +46,10 @@ public class EventHandler {
 
     @SubscribeEvent
     public void playerRenderPost(RenderPlayerEvent.Post event) {
-
-
     }
 
     @SubscribeEvent
-
     public void attachCapability(AttachCapabilitiesEvent.Entity event)
-
     {
 
         if (!(event.getEntity() instanceof EntityPlayer)) {
@@ -69,11 +65,8 @@ public class EventHandler {
     }
 
     @SubscribeEvent
-
     public void onPlayerClone(PlayerEvent.Clone event)
-
     {
-
         EntityPlayer player = event.getEntityPlayer();
 
         IDisguise render = player.getCapability(DisguiseProvider.DISGUISE, null);
@@ -84,4 +77,5 @@ public class EventHandler {
             render.setID(oldRender.getID());
         }
     }
+
 }

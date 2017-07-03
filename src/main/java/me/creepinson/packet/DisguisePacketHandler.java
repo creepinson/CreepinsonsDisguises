@@ -19,7 +19,6 @@ public class DisguisePacketHandler implements IMessageHandler<DisguisePacket, IM
             disguise.setID(message.disguiseID);
         }
 
-
         return null;
     }
 
