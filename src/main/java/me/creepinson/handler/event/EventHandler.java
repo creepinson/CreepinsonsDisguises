@@ -46,14 +46,14 @@ public class EventHandler {
     }
 
     @SubscribeEvent
-    public void attachCapability(AttachCapabilitiesEvent.Entity event)
+    public void attachCapability(AttachCapabilitiesEvent<Entity> event)
     {
 
-        if (!(event.getEntity() instanceof EntityPlayer)) {
+        if (!(event.getObject() instanceof EntityPlayer)) {
             return;
         }
 
-        if (event.getEntity().hasCapability(DisguiseProvider.DISGUISE, null)) {
+        if (event.getObject().hasCapability(DisguiseProvider.DISGUISE, null)) {
             System.out.println("Player already has capability");
             return;
         }
