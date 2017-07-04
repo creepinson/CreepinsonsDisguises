@@ -8,30 +8,18 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
 
 public class DisguiseStorage implements IStorage<IDisguise>
-
 {
 
- @Override
+    @Override
+    public NBTBase writeNBT(Capability<IDisguise> capability, IDisguise instance, EnumFacing side)
+    {
+        return new NBTTagInt(instance.getDisguiseID());
+    }
 
- public NBTBase writeNBT(Capability<IDisguise> capability, IDisguise instance, EnumFacing side)
-
- {
-
- return new NBTTagInt(instance.getDisguiseID());
-
- }
-
-
-
- @Override
-
- public void readNBT(Capability<IDisguise> capability, IDisguise instance, EnumFacing side, NBTBase nbt)
-
- {
-
-	 instance.setDisguiseID(((NBTPrimitive) nbt).getInt());
-
-
- }
+    @Override
+    public void readNBT(Capability<IDisguise> capability, IDisguise instance, EnumFacing side, NBTBase nbt)
+    {
+        instance.setDisguiseID(((NBTPrimitive) nbt).getInt());
+    }
 
 }

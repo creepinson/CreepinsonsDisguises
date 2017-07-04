@@ -15,4 +15,5 @@ public class Disguise  implements IDisguise
     {
         this.id = id;
     }
+
 }
