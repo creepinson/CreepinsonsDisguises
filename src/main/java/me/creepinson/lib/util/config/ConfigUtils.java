@@ -27,14 +27,14 @@ public class ConfigUtils {
 
         File coref = new File(Loader.instance().getConfigDir(), "creepinsondisguises.cfg");
         configcore = new Configuration(coref);
-        syncFromFiles();
+
 
     }
 
     public static void clientPreInit() {
 
         MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
-
+        syncFromFiles();
     }
 
 

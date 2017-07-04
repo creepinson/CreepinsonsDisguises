@@ -1,6 +1,7 @@
 package me.creepinson.lib.proxy;
 
 import me.creepinson.lib.util.config.ConfigUtils;
+import me.creepinson.lib.util.render.RenderHelper;
 import org.lwjgl.input.Keyboard;
 
 import me.creepinson.core.CreepzDisguises;
@@ -19,6 +20,7 @@ import sun.security.krb5.Config;
 public class ClientProxy extends CommonProxy {
 
     public static KeyBinding[] keyBindings;
+    public static RenderHelper renderUtils = new RenderHelper();
 
 
     @Override

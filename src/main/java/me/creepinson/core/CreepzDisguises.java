@@ -66,7 +66,6 @@ public class CreepzDisguises {
         INSTANCE.registerMessage(DisguisePacketHandler.class, DisguisePacket.class, 2, Side.SERVER);
         CapabilityManager.INSTANCE.register(IDisguise.class, new DisguiseStorage(), Disguise.class);
         Utils.getLogger().info("Init");
-        MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
         MinecraftForge.EVENT_BUS.register(new me.creepinson.handler.event.EventHandler());
         MinecraftForge.EVENT_BUS.register(new KeysHandler());
         proxy.init();
