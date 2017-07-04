@@ -10,60 +10,55 @@ public class DisguiseProvider implements ICapabilitySerializable<NBTBase>
 
 {
 
- @CapabilityInject(IDisguise.class)
+    @CapabilityInject(IDisguise.class)
 
- public static final Capability<IDisguise> DISGUISE = null;
-
-
-
- private IDisguise instance = DISGUISE.getDefaultInstance();
+    public static final Capability<IDisguise> DISGUISE = null;
 
 
-
- @Override
-
- public boolean hasCapability(Capability<?> capability, EnumFacing facing)
-
- {
-
- return capability == DISGUISE;
-
- }
+    private IDisguise instance = DISGUISE.getDefaultInstance();
 
 
+    @Override
 
- @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing)
 
- public <T> T getCapability(Capability<T> capability, EnumFacing facing)
+    {
 
- {
+        return capability == DISGUISE;
 
- return capability == DISGUISE ? DISGUISE.<T> cast(this.instance) : null;
-
- }
-
+    }
 
 
- @Override
+    @Override
 
- public NBTBase serializeNBT()
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing)
 
- {
+    {
 
- return DISGUISE.getStorage().writeNBT(DISGUISE, this.instance, null);
+        return capability == DISGUISE ? DISGUISE.<T>cast(this.instance) : null;
 
- }
+    }
 
 
+    @Override
 
- @Override
+    public NBTBase serializeNBT()
 
- public void deserializeNBT(NBTBase nbt)
+    {
 
- {
+        return DISGUISE.getStorage().writeNBT(DISGUISE, this.instance, null);
 
-	 DISGUISE.getStorage().readNBT(DISGUISE, this.instance, null, nbt);
+    }
 
- }
+
+    @Override
+
+    public void deserializeNBT(NBTBase nbt)
+
+    {
+
+        DISGUISE.getStorage().readNBT(DISGUISE, this.instance, null, nbt);
+
+    }
 
 }

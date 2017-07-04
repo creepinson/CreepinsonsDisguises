@@ -1,31 +1,28 @@
 package me.creepinson.lib.proxy;
 
-public class CommonProxy implements IProxy{
-	public void registerRenderers() {
-	
-
-	}
-	@Override
-	public void preInit() {
-	  
-		
-		
-	}
-	
-	@Override
-	public void init() {
-		
-		
-	}
-	
-	
+public class CommonProxy implements IProxy {
+    public void registerRenderers() {
 
 
-	@Override
-	public void postInit() {
-		
+    }
 
-		
-	}
-	
+    @Override
+    public void preInit() {
+
+
+    }
+
+    @Override
+    public void init() {
+
+
+    }
+
+
+    @Override
+    public void postInit() {
+
+
+    }
+
 }

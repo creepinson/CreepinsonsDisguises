@@ -33,8 +33,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = Utils.MODID, version = Utils.VERSION)
-public class CreepzDisguises
-{
+public class CreepzDisguises {
 
     public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel("mechannel");
 
@@ -47,8 +46,7 @@ public class CreepzDisguises
     public static CreepzDisguises instance;
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
+    public void preInit(FMLPreInitializationEvent event) {
         int entityID = MathHelper.getRandomUUID().hashCode();
         movingBlockID = entityID;
 
@@ -62,8 +60,7 @@ public class CreepzDisguises
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
+    public void init(FMLInitializationEvent event) {
         INSTANCE.registerMessage(PacketHandler2.class, CreepPacket.class, 0, Side.SERVER);
         INSTANCE.registerMessage(PacketHandler.class, EnderPacket.class, 1, Side.SERVER);
         INSTANCE.registerMessage(DisguisePacketHandler.class, DisguisePacket.class, 2, Side.SERVER);
@@ -76,31 +73,26 @@ public class CreepzDisguises
 
     }
 
-    public static class DisguiseFactory implements Callable<Disguise>
-    {
+    public static class DisguiseFactory implements Callable<Disguise> {
         @Override
-        public Disguise call() throws Exception
-        {
+        public Disguise call() throws Exception {
             return new Disguise();
         }
     }
 
     @EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
+    public void postInit(FMLPostInitializationEvent event) {
         Utils.getLogger().info("Post Init");
         proxy.postInit();
     }
 
     @SuppressWarnings("unchecked")
-    public static void registerEntity(Class<?> entityClass, String name, int ID, int color1, int color2)
-    {
+    public static void registerEntity(Class<?> entityClass, String name, int ID, int color1, int color2) {
         EntityRegistry.registerModEntity((Class<? extends Entity>) entityClass, name, ID, instance, 64, 10, true, color1, color2);
     }
 
     @SuppressWarnings("unchecked")
-    public static void registerEntity(Class<?> entityClass, String name, int ID)
-    {
+    public static void registerEntity(Class<?> entityClass, String name, int ID) {
         long seed = name.hashCode();
         Random rand = new Random(seed);
         int primaryColor = rand.nextInt() * 16777215;
@@ -108,10 +100,9 @@ public class CreepzDisguises
 
         EntityRegistry.registerModEntity((Class<? extends Entity>) entityClass, name, ID, instance, 64, 10, true, primaryColor, secondaryColor);
     }
-    
+
     @SuppressWarnings("unchecked")
-    public static void registerEntityNoEgg(Class<?> entityClass, String name, int ID)
-    {
+    public static void registerEntityNoEgg(Class<?> entityClass, String name, int ID) {
         EntityRegistry.registerModEntity((Class<? extends Entity>) entityClass, name, ID, instance, 64, 10, true);
     }
 

@@ -7,22 +7,20 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
 @SuppressWarnings("rawtypes")
-public class RenderDisguise extends RenderLivingBase
-{
+public class RenderDisguise extends RenderLivingBase {
     private ResourceLocation texture;
 
 
-    public RenderDisguise(RenderManager renderManager, ModelBase model, ResourceLocation text)
-    {
+    public RenderDisguise(RenderManager renderManager, ModelBase model, ResourceLocation text) {
         super(renderManager, model, 0.5F);
         this.texture = text;
     }
 
     @Override
-	protected ResourceLocation getEntityTexture(Entity entity) {
-		
-		return texture;
-	}
+    protected ResourceLocation getEntityTexture(Entity entity) {
+
+        return texture;
+    }
 
 }	
-	
+

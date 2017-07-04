@@ -25,8 +25,7 @@ public class EventHandler {
         EntityPlayer player = event.getEntityPlayer();
         Entity entity = event.getEntity();
         IDisguise playerCap = player.getCapability(DisguiseProvider.DISGUISE, null);
-        if (playerCap != null) 
-        {
+        if (playerCap != null) {
             ModelPlayer model = event.getRenderer().getMainModel();
             RenderPlayer renderP = (RenderPlayer) event.getRenderer();
             event.setCanceled(true);
@@ -47,8 +46,7 @@ public class EventHandler {
     }
 
     @SubscribeEvent
-    public void attachCapability(AttachCapabilitiesEvent<Entity> event)
-    {
+    public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
 
         if (!(event.getObject() instanceof EntityPlayer)) {
             return;
@@ -63,8 +61,7 @@ public class EventHandler {
     }
 
     @SubscribeEvent
-    public void onPlayerClone(PlayerEvent.Clone event)
-    {
+    public void onPlayerClone(PlayerEvent.Clone event) {
         EntityPlayer player = event.getEntityPlayer();
 
         IDisguise render = player.getCapability(DisguiseProvider.DISGUISE, null);

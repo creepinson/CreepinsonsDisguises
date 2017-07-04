@@ -8,16 +8,16 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ConfigEventHandler {
 
-@SubscribeEvent(priority = EventPriority.LOWEST)
-    public void changed(ConfigChangedEvent.OnConfigChangedEvent event){
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void changed(ConfigChangedEvent.OnConfigChangedEvent event) {
 
-    if(event.getModID().equals(Utils.MODID)){
+        if (event.getModID().equals(Utils.MODID)) {
 
-        ConfigUtils.syncFromGui();
+            ConfigUtils.syncFromGui();
+
+        }
 
     }
-
-}
 
 
 }

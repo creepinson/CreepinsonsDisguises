@@ -27,20 +27,19 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class RenderUnDisguise extends RenderLivingBase<AbstractClientPlayer>
-{
-	
+public class RenderUnDisguise extends RenderLivingBase<AbstractClientPlayer> {
 
-    /** this field is used to indicate the 3-pixel wide arms */
+
+    /**
+     * this field is used to indicate the 3-pixel wide arms
+     */
     private final boolean smallArms;
 
-    public RenderUnDisguise(RenderManager renderManager)
-    {
+    public RenderUnDisguise(RenderManager renderManager) {
         this(renderManager, false);
     }
 
-    public RenderUnDisguise(RenderManager renderManager, boolean useSmallArms)
-    {
+    public RenderUnDisguise(RenderManager renderManager, boolean useSmallArms) {
         super(renderManager, new ModelPlayer(0.0F, useSmallArms), 0.5F);
         this.smallArms = useSmallArms;
         this.addLayer(new LayerBipedArmor(this));
@@ -50,22 +49,18 @@ public class RenderUnDisguise extends RenderLivingBase<AbstractClientPlayer>
         this.addLayer(new LayerCustomHead(this.getMainModel().bipedHead));
     }
 
-    public ModelPlayer getMainModel()
-    {
-        return (ModelPlayer)super.getMainModel();
+    public ModelPlayer getMainModel() {
+        return (ModelPlayer) super.getMainModel();
     }
 
     /**
      * Renders the desired {@code T} type Entity.
      */
-    public void doRender(AbstractClientPlayer entity, double x, double y, double z, float entityYaw, float partialTicks)
-    {
-        if (!entity.isUser() || this.renderManager.renderViewEntity == entity)
-        {
+    public void doRender(AbstractClientPlayer entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        if (!entity.isUser() || this.renderManager.renderViewEntity == entity) {
             double d0 = y;
 
-            if (entity.isSneaking() && !(entity instanceof EntityPlayerSP))
-            {
+            if (entity.isSneaking() && !(entity instanceof EntityPlayerSP)) {
                 d0 = y - 0.125D;
             }
 
@@ -76,18 +71,14 @@ public class RenderUnDisguise extends RenderLivingBase<AbstractClientPlayer>
         }
     }
 
-    private void setModelVisibilities(AbstractClientPlayer clientPlayer)
-    {
+    private void setModelVisibilities(AbstractClientPlayer clientPlayer) {
         ModelPlayer modelplayer = this.getMainModel();
 
-        if (clientPlayer.isSpectator())
-        {
+        if (clientPlayer.isSpectator()) {
             modelplayer.setInvisible(false);
             modelplayer.bipedHead.showModel = true;
             modelplayer.bipedHeadwear.showModel = true;
-        }
-        else
-        {
+        } else {
             ItemStack itemstack = clientPlayer.getHeldItemMainhand();
             ItemStack itemstack1 = clientPlayer.getHeldItemOffhand();
             modelplayer.setInvisible(true);
@@ -101,52 +92,40 @@ public class RenderUnDisguise extends RenderLivingBase<AbstractClientPlayer>
             ModelBiped.ArmPose modelbiped$armpose = ModelBiped.ArmPose.EMPTY;
             ModelBiped.ArmPose modelbiped$armpose1 = ModelBiped.ArmPose.EMPTY;
 
-            if (itemstack != null)
-            {
+            if (itemstack != null) {
                 modelbiped$armpose = ModelBiped.ArmPose.ITEM;
 
-                if (clientPlayer.getItemInUseCount() > 0)
-                {
+                if (clientPlayer.getItemInUseCount() > 0) {
                     EnumAction enumaction = itemstack.getItemUseAction();
 
-                    if (enumaction == EnumAction.BLOCK)
-                    {
+                    if (enumaction == EnumAction.BLOCK) {
                         modelbiped$armpose = ModelBiped.ArmPose.BLOCK;
-                    }
-                    else if (enumaction == EnumAction.BOW)
-                    {
+                    } else if (enumaction == EnumAction.BOW) {
                         modelbiped$armpose = ModelBiped.ArmPose.BOW_AND_ARROW;
                     }
                 }
             }
 
-            if (itemstack1 != null)
-            {
+            if (itemstack1 != null) {
                 modelbiped$armpose1 = ModelBiped.ArmPose.ITEM;
 
-                if (clientPlayer.getItemInUseCount() > 0)
-                {
+                if (clientPlayer.getItemInUseCount() > 0) {
                     EnumAction enumaction1 = itemstack1.getItemUseAction();
 
-                    if (enumaction1 == EnumAction.BLOCK)
-                    {
+                    if (enumaction1 == EnumAction.BLOCK) {
                         modelbiped$armpose1 = ModelBiped.ArmPose.BLOCK;
                     }
                     // FORGE: fix MC-88356 allow offhand to use bow and arrow animation
-                    else if (enumaction1 == EnumAction.BOW)
-                    {
+                    else if (enumaction1 == EnumAction.BOW) {
                         modelbiped$armpose1 = ModelBiped.ArmPose.BOW_AND_ARROW;
                     }
                 }
             }
 
-            if (clientPlayer.getPrimaryHand() == EnumHandSide.RIGHT)
-            {
+            if (clientPlayer.getPrimaryHand() == EnumHandSide.RIGHT) {
                 modelplayer.rightArmPose = modelbiped$armpose;
                 modelplayer.leftArmPose = modelbiped$armpose1;
-            }
-            else
-            {
+            } else {
                 modelplayer.rightArmPose = modelbiped$armpose1;
                 modelplayer.leftArmPose = modelbiped$armpose;
             }
@@ -156,45 +135,38 @@ public class RenderUnDisguise extends RenderLivingBase<AbstractClientPlayer>
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    protected ResourceLocation getEntityTexture(AbstractClientPlayer entity)
-    {
+    protected ResourceLocation getEntityTexture(AbstractClientPlayer entity) {
         return entity.getLocationSkin();
     }
 
-    public void transformHeldFull3DItemLayer()
-    {
+    public void transformHeldFull3DItemLayer() {
         GlStateManager.translate(0.0F, 0.1875F, 0.0F);
     }
 
     /**
      * Allows the render to do state modifications necessary before the model is rendered.
      */
-    protected void preRenderCallback(AbstractClientPlayer entitylivingbaseIn, float partialTickTime)
-    {
+    protected void preRenderCallback(AbstractClientPlayer entitylivingbaseIn, float partialTickTime) {
         float f = 0.9375F;
         GlStateManager.scale(0.9375F, 0.9375F, 0.9375F);
     }
 
-    protected void renderEntityName(AbstractClientPlayer entityIn, double x, double y, double z, String name, double distanceSq)
-    {
-        if (distanceSq < 100.0D)
-        {
+    protected void renderEntityName(AbstractClientPlayer entityIn, double x, double y, double z, String name, double distanceSq) {
+        if (distanceSq < 100.0D) {
             Scoreboard scoreboard = entityIn.getWorldScoreboard();
             ScoreObjective scoreobjective = scoreboard.getObjectiveInDisplaySlot(2);
 
-            if (scoreobjective != null)
-            {
+            if (scoreobjective != null) {
                 Score score = scoreboard.getOrCreateScore(entityIn.getName(), scoreobjective);
                 this.renderLivingLabel(entityIn, score.getScorePoints() + " " + scoreobjective.getDisplayName(), x, y, z, 64);
-                y += (double)((float)this.getFontRendererFromRenderManager().FONT_HEIGHT * 1.15F * 0.025F);
+                y += (double) ((float) this.getFontRendererFromRenderManager().FONT_HEIGHT * 1.15F * 0.025F);
             }
         }
 
         super.renderEntityName(entityIn, x, y, z, name, distanceSq);
     }
 
-    public void renderRightArm(AbstractClientPlayer clientPlayer)
-    {
+    public void renderRightArm(AbstractClientPlayer clientPlayer) {
         float f = 1.0F;
         GlStateManager.color(1.0F, 1.0F, 1.0F);
         float f1 = 0.0625F;
@@ -211,8 +183,7 @@ public class RenderUnDisguise extends RenderLivingBase<AbstractClientPlayer>
         GlStateManager.disableBlend();
     }
 
-    public void renderLeftArm(AbstractClientPlayer clientPlayer)
-    {
+    public void renderLeftArm(AbstractClientPlayer clientPlayer) {
         float f = 1.0F;
         GlStateManager.color(1.0F, 1.0F, 1.0F);
         float f1 = 0.0625F;
@@ -232,53 +203,38 @@ public class RenderUnDisguise extends RenderLivingBase<AbstractClientPlayer>
     /**
      * Sets a simple glTranslate on a LivingEntity.
      */
-    protected void renderLivingAt(AbstractClientPlayer entityLivingBaseIn, double x, double y, double z)
-    {
-        if (entityLivingBaseIn.isEntityAlive() && entityLivingBaseIn.isPlayerSleeping())
-        {
-            super.renderLivingAt(entityLivingBaseIn, x + (double)entityLivingBaseIn.renderOffsetX, y + (double)entityLivingBaseIn.renderOffsetY, z + (double)entityLivingBaseIn.renderOffsetZ);
-        }
-        else
-        {
+    protected void renderLivingAt(AbstractClientPlayer entityLivingBaseIn, double x, double y, double z) {
+        if (entityLivingBaseIn.isEntityAlive() && entityLivingBaseIn.isPlayerSleeping()) {
+            super.renderLivingAt(entityLivingBaseIn, x + (double) entityLivingBaseIn.renderOffsetX, y + (double) entityLivingBaseIn.renderOffsetY, z + (double) entityLivingBaseIn.renderOffsetZ);
+        } else {
             super.renderLivingAt(entityLivingBaseIn, x, y, z);
         }
     }
 
-    protected void rotateCorpse(AbstractClientPlayer entityLiving, float p_77043_2_, float p_77043_3_, float partialTicks)
-    {
-        if (entityLiving.isEntityAlive() && entityLiving.isPlayerSleeping())
-        {
+    protected void rotateCorpse(AbstractClientPlayer entityLiving, float p_77043_2_, float p_77043_3_, float partialTicks) {
+        if (entityLiving.isEntityAlive() && entityLiving.isPlayerSleeping()) {
             GlStateManager.rotate(entityLiving.getBedOrientationInDegrees(), 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(this.getDeathMaxRotation(entityLiving), 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(270.0F, 0.0F, 1.0F, 0.0F);
-        }
-        else if (entityLiving.isElytraFlying())
-        {
+        } else if (entityLiving.isElytraFlying()) {
             super.rotateCorpse(entityLiving, p_77043_2_, p_77043_3_, partialTicks);
-            float f = (float)entityLiving.getTicksElytraFlying() + partialTicks;
+            float f = (float) entityLiving.getTicksElytraFlying() + partialTicks;
             float f1 = MathHelper.clamp_float(f * f / 100.0F, 0.0F, 1.0F);
             GlStateManager.rotate(f1 * (-90.0F - entityLiving.rotationPitch), 1.0F, 0.0F, 0.0F);
             Vec3d vec3d = entityLiving.getLook(partialTicks);
             double d0 = entityLiving.motionX * entityLiving.motionX + entityLiving.motionZ * entityLiving.motionZ;
             double d1 = vec3d.xCoord * vec3d.xCoord + vec3d.zCoord * vec3d.zCoord;
 
-            if (d0 > 0.0D && d1 > 0.0D)
-            {
+            if (d0 > 0.0D && d1 > 0.0D) {
                 double d2 = (entityLiving.motionX * vec3d.xCoord + entityLiving.motionZ * vec3d.zCoord) / (Math.sqrt(d0) * Math.sqrt(d1));
                 double d3 = entityLiving.motionX * vec3d.zCoord - entityLiving.motionZ * vec3d.xCoord;
-                GlStateManager.rotate((float)(Math.signum(d3) * Math.acos(d2)) * 180.0F / (float)Math.PI, 0.0F, 1.0F, 0.0F);
+                GlStateManager.rotate((float) (Math.signum(d3) * Math.acos(d2)) * 180.0F / (float) Math.PI, 0.0F, 1.0F, 0.0F);
             }
-        }
-        else
-        {
+        } else {
             super.rotateCorpse(entityLiving, p_77043_2_, p_77043_3_, partialTicks);
         }
     }
-	
-	
-	
-	
-	
-	
+
+
 }
-	
+

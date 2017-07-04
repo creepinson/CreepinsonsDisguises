@@ -20,7 +20,7 @@ public enum DisguiseTypes {
     private DisguiseTypes(ModelBase model, ResourceLocation texture) {
         disguise = new RenderDisguise(Minecraft.getMinecraft().getRenderManager(), model, texture);
     }
-    
+
     private DisguiseTypes() {
         player = new RenderUnDisguise(Minecraft.getMinecraft().getRenderManager());
     }
@@ -29,8 +29,8 @@ public enum DisguiseTypes {
         return disguise;
     }
 
-    public RenderUnDisguise getPlayer(){
+    public RenderUnDisguise getPlayer() {
         return player;
     }
-    
+
 }

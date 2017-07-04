@@ -1,18 +1,15 @@
 package me.creepinson.capability;
 
-public class Disguise  implements IDisguise
-{
+public class Disguise implements IDisguise {
     protected int id = 0;
 
     @Override
-    public int getDisguiseID() 
-    {
+    public int getDisguiseID() {
         return id;
     }
 
     @Override
-    public void setDisguiseID(int id) 
-    {
+    public void setDisguiseID(int id) {
         this.id = id;
     }
 }

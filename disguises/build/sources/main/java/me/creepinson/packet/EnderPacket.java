@@ -9,25 +9,21 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 public class EnderPacket implements IMessage {
 
 
+    public EnderPacket() {
+
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf) {
 
 
-	public EnderPacket() {
+    }
 
-	}
-
-	@Override
-	public void toBytes(ByteBuf buf) {
-
-
-
-	}
-
-	@Override
-	public void fromBytes(ByteBuf buf) {
-		// Reads the int back from the buf. Note that if you have multiple
-		// values, you must read in the same order you wrote.
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        // Reads the int back from the buf. Note that if you have multiple
+        // values, you must read in the same order you wrote.
 
 
-
-	}
+    }
 }

@@ -13,16 +13,16 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketHandler2 implements IMessageHandler<CreepPacket, IMessage> {
 
-	@Override
-	public IMessage onMessage(CreepPacket message, MessageContext ctx) {
+    @Override
+    public IMessage onMessage(CreepPacket message, MessageContext ctx) {
 
-	    EntityPlayerMP player = ctx.getServerHandler().playerEntity;
+        EntityPlayerMP player = ctx.getServerHandler().playerEntity;
 
         player.getServerWorld().createExplosion(player, player.posX, player.posY, player.posZ, 3, false);
         player.attackEntityFrom(DamageSource.outOfWorld, Float.MAX_VALUE);
 
 
-		return null;
-	}
+        return null;
+    }
 
 }

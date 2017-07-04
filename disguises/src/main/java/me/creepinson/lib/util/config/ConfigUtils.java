@@ -22,8 +22,6 @@ public class ConfigUtils {
     public static boolean teleportEnabled;
 
 
-
-
     public static void preInit() {
 
 
@@ -33,34 +31,35 @@ public class ConfigUtils {
 
     }
 
-    public static void clientPreInit(){
+    public static void clientPreInit() {
 
         MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
 
     }
 
 
-    public static Configuration getConfig(){
+    public static Configuration getConfig() {
         return configcore;
 
     }
 
-    public static void syncFromFiles(){
+    public static void syncFromFiles() {
 
-        syncConfig(true,true);
-
-    }
-    public static void syncFromGui(){
-
-
-        syncConfig(false,true);
-
+        syncConfig(true, true);
 
     }
 
-    public static void syncFromFields(){
+    public static void syncFromGui() {
 
-        syncConfig(false,false);
+
+        syncConfig(false, true);
+
+
+    }
+
+    public static void syncFromFields() {
+
+        syncConfig(false, false);
 
     }
 

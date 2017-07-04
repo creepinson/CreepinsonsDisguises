@@ -12,10 +12,10 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketHandler implements IMessageHandler<EnderPacket, IMessage> {
 
-	@Override
-	public IMessage onMessage(EnderPacket message, MessageContext ctx) {
+    @Override
+    public IMessage onMessage(EnderPacket message, MessageContext ctx) {
 
-	    EntityPlayerMP player = ctx.getServerHandler().playerEntity;
+        EntityPlayerMP player = ctx.getServerHandler().playerEntity;
 
         World world = player.getServerWorld();
         RayTraceResult ray = player.rayTrace(60, 25);
@@ -25,8 +25,7 @@ public class PacketHandler implements IMessageHandler<EnderPacket, IMessage> {
         player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 75, 1);
 
 
-
-		return null;
-	}
+        return null;
+    }
 
 }
