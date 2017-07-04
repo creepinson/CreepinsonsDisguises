@@ -6,7 +6,9 @@ import net.minecraft.client.model.ModelEnderman;
 import net.minecraft.client.model.ModelPig;
 import net.minecraft.util.ResourceLocation;
 
-public class RenderDisguises {
+public enum RenderDisguises {
+    INSTANCE;
+    
 	public static RenderDisguise pig = new RenderDisguise(Minecraft.getMinecraft().getRenderManager(), new ModelPig(),
 			new ResourceLocation("textures/entity/pig/pig.png"));
 

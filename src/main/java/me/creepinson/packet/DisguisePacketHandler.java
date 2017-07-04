@@ -16,9 +16,8 @@ public class DisguisePacketHandler implements IMessageHandler<DisguisePacket, IM
         EntityPlayerMP player = ctx.getServerHandler().playerEntity;
         IDisguise disguise = player.getCapability(DisguiseProvider.DISGUISE, null);
         if (disguise != null) {
-            disguise.setID(message.disguiseID);
+            disguise.setDisguiseID(message.disguiseID);
         }
-
 
         return null;
     }

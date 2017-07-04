@@ -35,7 +35,7 @@ public class GuiMomo extends GuiScreen {
 	@Override
 	public void initGui() {
 	    disguiseInstance = mc.thePlayer.getCapability(DisguiseProvider.DISGUISE, null);
-	    disguiseId = disguiseInstance.getID();
+	    disguiseId = disguiseInstance.getDisguiseID();
 	    
 		int i = (this.width - 248) / 2;
 		int j = (this.height - 166) / 2;
@@ -93,25 +93,25 @@ public void onGuiClosed() {
 		if (button.id == 1) {
 //		    	CreepzDisguises.INSTANCE.sendToServer(new CreepPacket(1));
 //		    	RenderHelper.currentRender = RenderHelper.getRenderFromID(1);
-		    disguiseInstance.setID(1);
+		    disguiseInstance.setDisguiseID(1);
 			CreepzDisguises.INSTANCE.sendToServer(new DisguisePacket(1));
 		}
 		if (button.id == 2) {
 //				CreepzDisguises.INSTANCE.sendToServer(new CreepPacket(2));
 //				RenderHelper.currentRender = RenderHelper.getRenderFromID(2);
-		    disguiseInstance.setID(2);
+		    disguiseInstance.setDisguiseID(2);
 			CreepzDisguises.INSTANCE.sendToServer(new DisguisePacket(2));
         }
 		if (button.id == 3) {
 //				CreepzDisguises.INSTANCE.sendToServer(new CreepPacket(2));
 //				RenderHelper.currentRender = RenderHelper.getRenderFromID(2);
-			disguiseInstance.setID(3);
+			disguiseInstance.setDisguiseID(3);
             		CreepzDisguises.INSTANCE.sendToServer(new DisguisePacket(3));
         }
 		if (button.id == 0) {
 //		        CreepzDisguises.INSTANCE.sendToServer(new CreepPacket(0));
 //				RenderHelper.currentRender = RenderHelper.getRenderFromID(0);
-		    disguiseInstance.setID(0);
+		    disguiseInstance.setDisguiseID(0);
 			CreepzDisguises.INSTANCE.sendToServer(new DisguisePacket(0));
 		}
         mc.displayGuiScreen(null);

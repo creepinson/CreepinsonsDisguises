@@ -4,9 +4,9 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
+@SuppressWarnings("rawtypes")
 public class RenderDisguise extends RenderLivingBase
 {
     private ResourceLocation texture;
@@ -18,12 +18,11 @@ public class RenderDisguise extends RenderLivingBase
         this.texture = text;
     }
 
-
-
     @Override
 	protected ResourceLocation getEntityTexture(Entity entity) {
 		
 		return texture;
 	}
+
 }	
 	
