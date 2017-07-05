@@ -2,6 +2,7 @@ package me.creepinson.lib.proxy;
 
 import me.creepinson.lib.util.config.ConfigUtils;
 import me.creepinson.lib.util.render.RenderHelper;
+import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
 
 import me.creepinson.core.CreepzDisguises;
@@ -37,6 +38,7 @@ public class ClientProxy extends CommonProxy {
 
     public void init() {
         super.init();
+        MinecraftForge.EVENT_BUS.register(new me.creepinson.handler.event.RenderingHandler());
 
 
         RenderingRegistry.registerEntityRenderingHandler(EntityPlayer.class, new IRenderFactory() {
