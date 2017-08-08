@@ -28,19 +28,19 @@ public class RenderingHandler {
         if (playerCap != null) {
             ModelPlayer model = event.getRenderer().getMainModel();
             RenderPlayer renderP = (RenderPlayer) event.getRenderer();
+
+
             event.setCanceled(true);
-            if (ClientProxy.renderUtils.currentRender == RenderDisguises.enderman) {
+            if (playerCap.getDisguiseID() == 3) {
                 player.eyeHeight = 2.62f;
-            } else {
+            } else  {
                 player.eyeHeight = 1.62f;
             }
-            ClientProxy.renderUtils.currentRender = RenderHelper.getRenderFromID(playerCap.getDisguiseID());
-            if (ClientProxy.renderUtils.currentRender != null)
-                ClientProxy.renderUtils.currentRender.doRender((EntityLivingBase) player, 0, 0, 0, 0, 1);
+
+
+            RenderHelper.getRenderFromID(playerCap.getDisguiseID()).doRender((EntityLivingBase) player, 0, 0, 0, ((EntityLivingBase) player).rotationYaw, 1);
+
         }
-
     }
-
-
 
 }
