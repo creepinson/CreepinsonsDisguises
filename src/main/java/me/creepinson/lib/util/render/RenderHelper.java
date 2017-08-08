@@ -1,14 +1,16 @@
 package me.creepinson.lib.util.render;
 
 import me.creepinson.render.disguise.RenderDisguises;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 
 @SuppressWarnings("rawtypes")
 public class RenderHelper {
 
 
-    public static RenderLivingBase getRenderFromID(int id) {
+    public static Render<EntityLivingBase> getRenderFromID(int id) {
         switch (id) {
             case 0:
                 return RenderDisguises.player;
@@ -27,7 +29,6 @@ public class RenderHelper {
 //    public boolean isDisguiseActive(EntityPlayer p) {
 //        return p. != RenderDisguises.player;
 //    }
-
 
 
 }
