@@ -1,22 +1,21 @@
 package me.creepinson.lib.proxy;
 
-import me.creepinson.lib.util.config.ConfigUtils;
-import me.creepinson.lib.util.render.RenderHelper;
-import net.minecraftforge.common.MinecraftForge;
-import org.lwjgl.input.Keyboard;
-
 import me.creepinson.core.CreepzDisguises;
 import me.creepinson.handler.GuiHandler;
+import me.creepinson.handler.event.RenderingHandler;
+import me.creepinson.lib.util.config.ConfigUtils;
+import me.creepinson.lib.util.render.RenderHelper;
 import me.creepinson.render.disguise.RenderDisguises;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import sun.security.krb5.Config;
+import org.lwjgl.input.Keyboard;
 
 public class ClientProxy extends CommonProxy {
 
@@ -70,7 +69,7 @@ public class ClientProxy extends CommonProxy {
         });
 
         NetworkRegistry.INSTANCE.registerGuiHandler(CreepzDisguises.instance, new GuiHandler());
-
+        RenderingHandler.init();
 
         //KEYBINDS
 

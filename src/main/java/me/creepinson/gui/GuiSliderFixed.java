@@ -4,8 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
-
 import org.lwjgl.opengl.GL11;
 
 public class GuiSliderFixed extends GuiButton {
@@ -51,13 +49,15 @@ public class GuiSliderFixed extends GuiButton {
     }
 
 
+
+
     @Override
-    public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+    public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
-            FontRenderer fontrenderer = mc.fontRendererObj;
+            FontRenderer fontrenderer = mc.fontRenderer;
             mc.getTextureManager().bindTexture(BUTTON_TEXTURES);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+            this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
             int k = this.getHoverState(this.hovered);
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
@@ -73,14 +73,14 @@ public class GuiSliderFixed extends GuiButton {
                 l = 16777120;
             }
 
-            this.drawCenteredString(fontrenderer, this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 8) / 2, l);
+            this.drawCenteredString(fontrenderer, this.displayString, this.x + this.width / 2, this.y + (this.height - 8) / 2, l);
         }
     }
 
     protected void mouseDragged(Minecraft par1Minecraft, int par2, int par3) {
         if (this.enabled && this.visible && this.packedFGColour == 0) {
             if (this.dragging) {
-                this.sliderPosition = (float) (par2 - (this.xPosition + 4)) / (float) (this.width - 8);
+                this.sliderPosition = (float) (par2 - (this.x + 4)) / (float) (this.width - 8);
 
                 if (this.sliderPosition < 0.0F) {
                     this.sliderPosition = 0.0F;
@@ -94,14 +94,14 @@ public class GuiSliderFixed extends GuiButton {
 
             this.displayString = label + ": " + (int) (sliderPosition * sliderMaxValue);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawTexturedModalRect(this.xPosition + (int) (this.sliderPosition * (float) (this.width - 8)), this.yPosition, 0, 66, 4, 20);
-            this.drawTexturedModalRect(this.xPosition + (int) (this.sliderPosition * (float) (this.width - 8)) + 4, this.yPosition, 196, 66, 4, 20);
+            this.drawTexturedModalRect(this.x + (int) (this.sliderPosition * (float) (this.width - 8)), this.y, 0, 66, 4, 20);
+            this.drawTexturedModalRect(this.x + (int) (this.sliderPosition * (float) (this.width - 8)) + 4, this.y, 196, 66, 4, 20);
         }
     }
 
     public boolean mousePressed(Minecraft par1Minecraft, int par2, int par3) {
         if (super.mousePressed(par1Minecraft, par2, par3)) {
-            this.sliderPosition = (float) (par2 - (this.xPosition + 4)) / (float) (this.width - 8);
+            this.sliderPosition = (float) (par2 - (this.x + 4)) / (float) (this.width - 8);
 
             if (this.sliderPosition < 0.0F) {
                 this.sliderPosition = 0.0F;

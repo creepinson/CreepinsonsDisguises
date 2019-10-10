@@ -9,11 +9,9 @@ import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
@@ -231,7 +229,7 @@ public class RenderDisguise extends Render<EntityLivingBase> {
      */
     protected void renderModel(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
         boolean flag = !entitylivingbaseIn.isInvisible() || this.renderOutlines;
-        boolean flag1 = !flag && !entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer);
+        boolean flag1 = !flag && !entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().player);
 
         if (flag || flag1) {
             if (!this.bindEntityTexture(entitylivingbaseIn)) {
@@ -255,7 +253,7 @@ public class RenderDisguise extends Render<EntityLivingBase> {
     }
 
     protected boolean setBrightness(EntityLivingBase entitylivingbaseIn, float partialTicks, boolean combineTextures) {
-        float f = entitylivingbaseIn.getBrightness(partialTicks);
+        float f = entitylivingbaseIn.getBrightness();
         int i = this.getColorMultiplier(entitylivingbaseIn, f, partialTicks);
         boolean flag = (i >> 24 & 255) > 0;
         boolean flag1 = entitylivingbaseIn.hurtTime > 0 || entitylivingbaseIn.deathTime > 0;
@@ -378,7 +376,7 @@ public class RenderDisguise extends Render<EntityLivingBase> {
 
         if (entityLiving.deathTime > 0) {
             float f = ((float) entityLiving.deathTime + partialTicks - 1.0F) / 20.0F * 1.6F;
-            f = MathHelper.sqrt_float(f);
+            f = MathHelper.sqrt(f);
 
             if (f > 1.0F) {
                 f = 1.0F;
@@ -440,7 +438,7 @@ public class RenderDisguise extends Render<EntityLivingBase> {
     public void renderName(EntityLivingBase entity, double x, double y, double z) {
 
         if (this.canRenderName(entity)) {
-            double d0 = entity.getDistanceSqToEntity(this.renderManager.renderViewEntity);
+            double d0 = entity.getDistance(this.renderManager.renderViewEntity);
             float f = entity.isSneaking() ? NAME_TAG_RANGE_SNEAK : NAME_TAG_RANGE;
 
             if (d0 < (double) (f * f)) {
@@ -452,7 +450,7 @@ public class RenderDisguise extends Render<EntityLivingBase> {
     }
 
     protected boolean canRenderName(EntityLivingBase entity) {
-        EntityPlayerSP entityplayersp = Minecraft.getMinecraft().thePlayer;
+        EntityPlayerSP entityplayersp = Minecraft.getMinecraft().player;
         boolean flag = !entity.isInvisibleToPlayer(entityplayersp);
 
         if (entity != entityplayersp) {

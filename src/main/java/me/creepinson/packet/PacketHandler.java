@@ -15,7 +15,7 @@ public class PacketHandler implements IMessageHandler<EnderPacket, IMessage> {
     @Override
     public IMessage onMessage(EnderPacket message, MessageContext ctx) {
 
-        EntityPlayerMP player = ctx.getServerHandler().playerEntity;
+        EntityPlayerMP player = ctx.getServerHandler().player;
 
         World world = player.getServerWorld();
         RayTraceResult ray = player.rayTrace(60, 25);

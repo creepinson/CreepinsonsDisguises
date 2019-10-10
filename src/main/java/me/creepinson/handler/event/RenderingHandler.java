@@ -1,76 +1,59 @@
 package me.creepinson.handler.event;
 
-import me.creepinson.capability.DisguiseProvider;
-import me.creepinson.capability.IDisguise;
-import me.creepinson.lib.proxy.ClientProxy;
-import me.creepinson.lib.util.render.RenderHelper;
-import me.creepinson.render.disguise.RenderDisguise;
-import me.creepinson.render.disguise.RenderDisguises;
-import me.creepinson.st.Events;
-import net.minecraft.client.model.ModelPlayer;
-import net.minecraft.client.renderer.entity.RenderPlayer;
+import me.creepinson.disguise.Disguises;
+import me.creepinson.disguise.PlayerDisguise;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-/**
- * Created by Creepinson on 7/4/2017.
- */
-@SideOnly(Side.CLIENT
-)
+import java.lang.reflect.Field;
+import java.util.Map;
 
+@SideOnly(Side.CLIENT)
 public class RenderingHandler {
-
-    @SuppressWarnings("unchecked")
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-
-    public void playerRenderPre(RenderLivingEvent.Pre<EntityLivingBase> event) {
-
-        Entity entity = event.getEntity();
-        if (entity instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getEntity();
-            IDisguise playerCap = player.getCapability(DisguiseProvider.DISGUISE, null);
-            if (playerCap != null) {
-
-
-                event.setCanceled(true);
-                if (playerCap.getDisguiseID() == 3) {
-                    player.eyeHeight = 2.62f;
-                } else {
-                    player.eyeHeight = 1.62f;
-                }
-
-                RenderHelper.getRenderFromID(playerCap.getDisguiseID()).doRender((EntityLivingBase) player, 0, 0, 0, ((EntityLivingBase) player).rotationYaw, 1);
-
-            }
+    private static Map<Class<? extends Entity>, IRenderFactory<? extends Entity>> map;
+    public static void init() {
+        try {
+            Field field = RenderingRegistry.class.getDeclaredField("INSTANCE");
+            field.setAccessible(true);
+            RenderingRegistry object = (RenderingRegistry) field.get(null);
+            field = object.getClass().getDeclaredField("entityRenderers");
+            field.setAccessible(true);
+            map = (Map<Class<? extends Entity>, IRenderFactory<? extends Entity>>) field.get(object);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
+    @SuppressWarnings("unchecked")
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void playerRenderPre(RenderPlayerEvent.Pre event) {
+        if (Disguises.getDisguises().containsKey(event.getEntityPlayer().getUniqueID())) {
+            event.setCanceled(true);
+        }
+    }
 
-    public void playerRenderPre(Events.Render.RenderCustomLivingEvent.Pre<EntityLivingBase> event) {
+    public static Map<Class<? extends Entity>, IRenderFactory<? extends Entity>> getEntityRendererMap() {
+        return map;
+    }
 
-        Entity entity = event.getEntity();
-        if (entity instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getEntity();
-            IDisguise playerCap = player.getCapability(DisguiseProvider.DISGUISE, null);
-            if (playerCap != null) {
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void playerRenderPre(RenderPlayerEvent.Post event) {
+        if (Disguises.getDisguises().containsKey(event.getEntityPlayer().getUniqueID())) {
+            try {
 
-
-                event.setCanceled(true);
-                if (playerCap.getDisguiseID() == 3) {
-                    player.eyeHeight = 2.62f;
-                } else {
-                    player.eyeHeight = 1.62f;
-                }
-
-                RenderHelper.getRenderFromID(playerCap.getDisguiseID()).doRender((EntityLivingBase) player, 0, 0, 0, ((EntityLivingBase) player).rotationYaw, 1);
-
+                PlayerDisguise d = Disguises.getDisguises().get(event.getEntityPlayer().getUniqueID());
+                Render render = map.get(d.type.getClass()).createRenderFor(Minecraft.getMinecraft().getRenderManager());
+                render.doRender(event.getEntity(), event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, event.getEntity().rotationYaw, 1);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

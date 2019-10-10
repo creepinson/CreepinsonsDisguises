@@ -11,10 +11,7 @@ import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerArrow;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
-import net.minecraft.client.renderer.entity.layers.LayerCape;
 import net.minecraft.client.renderer.entity.layers.LayerCustomHead;
-import net.minecraft.client.renderer.entity.layers.LayerDeadmau5Head;
-import net.minecraft.client.renderer.entity.layers.LayerElytra;
 import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,8 +26,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -208,13 +203,13 @@ public class RenderUnDisguise extends RenderLivingBase<AbstractClientPlayer> {
         ModelPlayer modelplayer = this.getMainModel();
 
         if (clientPlayer.isSpectator()) {
-            modelplayer.setInvisible(false);
+            modelplayer.setVisible(true);
             modelplayer.bipedHead.showModel = true;
             modelplayer.bipedHeadwear.showModel = true;
         } else {
             ItemStack itemstack = clientPlayer.getHeldItemMainhand();
             ItemStack itemstack1 = clientPlayer.getHeldItemOffhand();
-            modelplayer.setInvisible(true);
+            modelplayer.setVisible(false);
             modelplayer.bipedHeadwear.showModel = clientPlayer.isWearing(EnumPlayerModelParts.HAT);
             modelplayer.bipedBodyWear.showModel = clientPlayer.isWearing(EnumPlayerModelParts.JACKET);
             modelplayer.bipedLeftLegwear.showModel = clientPlayer.isWearing(EnumPlayerModelParts.LEFT_PANTS_LEG);
@@ -350,21 +345,21 @@ public class RenderUnDisguise extends RenderLivingBase<AbstractClientPlayer> {
             GlStateManager.rotate(this.getDeathMaxRotation(entityLiving), 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(270.0F, 0.0F, 1.0F, 0.0F);
         } else if (entityLiving.isElytraFlying()) {
-            super.rotateCorpse(entityLiving, p_77043_2_, p_77043_3_, partialTicks);
+            super.applyRotations(entityLiving, p_77043_2_, p_77043_3_, partialTicks);
             float f = (float) entityLiving.getTicksElytraFlying() + partialTicks;
-            float f1 = MathHelper.clamp_float(f * f / 100.0F, 0.0F, 1.0F);
+            float f1 = MathHelper.clamp(f * f / 100.0F, 0.0F, 1.0F);
             GlStateManager.rotate(f1 * (-90.0F - entityLiving.rotationPitch), 1.0F, 0.0F, 0.0F);
             Vec3d vec3d = entityLiving.getLook(partialTicks);
             double d0 = entityLiving.motionX * entityLiving.motionX + entityLiving.motionZ * entityLiving.motionZ;
-            double d1 = vec3d.xCoord * vec3d.xCoord + vec3d.zCoord * vec3d.zCoord;
+            double d1 = vec3d.x * vec3d.x + vec3d.z * vec3d.z;
 
             if (d0 > 0.0D && d1 > 0.0D) {
-                double d2 = (entityLiving.motionX * vec3d.xCoord + entityLiving.motionZ * vec3d.zCoord) / (Math.sqrt(d0) * Math.sqrt(d1));
-                double d3 = entityLiving.motionX * vec3d.zCoord - entityLiving.motionZ * vec3d.xCoord;
+                double d2 = (entityLiving.motionX * vec3d.x + entityLiving.motionZ * vec3d.z) / (Math.sqrt(d0) * Math.sqrt(d1));
+                double d3 = entityLiving.motionX * vec3d.z - entityLiving.motionZ * vec3d.x;
                 GlStateManager.rotate((float) (Math.signum(d3) * Math.acos(d2)) * 180.0F / (float) Math.PI, 0.0F, 1.0F, 0.0F);
             }
         } else {
-            super.rotateCorpse(entityLiving, p_77043_2_, p_77043_3_, partialTicks);
+            super.applyRotations(entityLiving, p_77043_2_, p_77043_3_, partialTicks);
         }
     }
 

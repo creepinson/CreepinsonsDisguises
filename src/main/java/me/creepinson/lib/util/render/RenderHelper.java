@@ -1,8 +1,11 @@
 package me.creepinson.lib.util.render;
 
 import me.creepinson.render.disguise.RenderDisguises;
+import me.creepinson.render.disguise.RenderUnDisguise;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -10,10 +13,10 @@ import net.minecraft.entity.player.EntityPlayer;
 public class RenderHelper {
 
 
-    public static Render<EntityLivingBase> getRenderFromID(int id) {
+    public static Render<EntityLivingBase> getRenderFromID(int id, EntityPlayer player) {
         switch (id) {
             case 0:
-                return RenderDisguises.player;
+                return getPlayerDisguise(player);
             case 1:
                 return RenderDisguises.pig;
             case 2:
@@ -21,8 +24,16 @@ public class RenderHelper {
             case 3:
                 return RenderDisguises.enderman;
             default:
-                return RenderDisguises.player;
+                return getPlayerDisguise(player);
         }
+    }
+
+    private static Render getPlayerDisguise(EntityPlayer player) {
+        //player instanceof AbstractClientPlayer
+        String s = ((AbstractClientPlayer)player).getSkinType();
+        RenderPlayer r = Minecraft.getMinecraft().getRenderManager().getSkinMap().get(s);
+        RenderUnDisguise renderplayer = new RenderUnDisguise(Minecraft.getMinecraft().getRenderManager(), s == "default" ? false : true);
+        return renderplayer != null ? renderplayer  : new RenderPlayer(Minecraft.getMinecraft().getRenderManager());
     }
 
 //

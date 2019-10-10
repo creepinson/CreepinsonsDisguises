@@ -1,19 +1,17 @@
 package me.creepinson.gui;
 
-import java.io.IOException;
-
-import me.creepinson.core.CreepzDisguises;
-import me.creepinson.packet.DisguisePacket;
-import net.minecraft.client.Minecraft;
-import org.lwjgl.input.Keyboard;
-
 import me.creepinson.capability.DisguiseProvider;
 import me.creepinson.capability.IDisguise;
+import me.creepinson.core.CreepzDisguises;
 import me.creepinson.lib.util.Utils;
+import me.creepinson.packet.DisguisePacket;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.input.Keyboard;
+
+import java.io.IOException;
 
 public class GuiMomo extends GuiScreen {
 
@@ -34,7 +32,7 @@ public class GuiMomo extends GuiScreen {
 
     @Override
     public void initGui() {
-        disguiseInstance = mc.thePlayer.getCapability(DisguiseProvider.DISGUISE, null);
+        disguiseInstance = mc.player.getCapability(DisguiseProvider.DISGUISE, null);
         disguiseId = disguiseInstance.getDisguiseID();
 
         int i = (this.width - 248) / 2;
