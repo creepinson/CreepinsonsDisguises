@@ -39,11 +39,11 @@ public class RenderingHandler {
                 Render render = factory.createRenderFor(Minecraft.getMinecraft().getRenderManager());
                 renderDisguiseMap.put(clazz, render);
             }
-            for(Class<? extends Entity> clazz : map2.keySet()) {
+            for(Class<? extends Entity> clazz : Minecraft.getMinecraft().getRenderManager().entityRenderMap.keySet()) {
                 //IRenderFactory<? extends Entity> factory = map.get(clazz);
                 //Render render = factory.createRenderFor(Minecraft.getMinecraft().getRenderManager());
                 System.out.println(clazz.getName());
-                renderDisguiseMap.put(clazz, map2.get(clazz));
+                renderDisguiseMap.put(clazz, Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(clazz));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,8 +57,11 @@ public class RenderingHandler {
             event.setCanceled(true);
             try {
                 PlayerDisguise d = Disguises.getDisguises().get(event.getEntityPlayer().getUniqueID());
+                //System.out.println(renderDisguiseMap);
                 Render render = renderDisguiseMap.get(d.type);
-                render.doRender(event.getEntity(), event.getX(), event.getY(), event.getZ(), event.getEntity().rotationYaw, 1);
+                Entity entity = d.type.cast(event.getEntityLiving());
+                System.out.println(entity);
+                render.doRender(entity, event.getX(), event.getY(), event.getZ(), event.getEntity().rotationYaw, 1);
             } catch (Exception e) {
                 e.printStackTrace();
             }
