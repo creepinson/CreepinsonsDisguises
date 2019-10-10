@@ -14,11 +14,14 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
 
 @SideOnly(Side.CLIENT)
 public class RenderingHandler {
     private static Map<Class<? extends Entity>, IRenderFactory<? extends Entity>> map;
+    private static Map<Class<? extends Entity>, Render<? extends Entity>> map2;
+    private static Map<Class<? extends Entity>, Render<? extends Entity>> renderDisguiseMap = new HashMap<>();
     public static void init() {
         try {
             Field field = RenderingRegistry.class.getDeclaredField("INSTANCE");
@@ -27,6 +30,21 @@ public class RenderingHandler {
             field = object.getClass().getDeclaredField("entityRenderers");
             field.setAccessible(true);
             map = (Map<Class<? extends Entity>, IRenderFactory<? extends Entity>>) field.get(object);
+            // TODO: add map for old entity renderers that don't use IRenderFactory
+            map2 = (Map<Class<? extends Entity>, Render<? extends Entity>>) field.get(object);
+            // TODO: add map for old entity renderers that don't use IRenderFactory
+
+            for(Class<? extends Entity> clazz : map.keySet()) {
+                IRenderFactory<? extends Entity> factory = map.get(clazz);
+                Render render = factory.createRenderFor(Minecraft.getMinecraft().getRenderManager());
+                renderDisguiseMap.put(clazz, render);
+            }
+            for(Class<? extends Entity> clazz : map2.keySet()) {
+                //IRenderFactory<? extends Entity> factory = map.get(clazz);
+                //Render render = factory.createRenderFor(Minecraft.getMinecraft().getRenderManager());
+                System.out.println(clazz.getName());
+                renderDisguiseMap.put(clazz, map2.get(clazz));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -37,6 +55,13 @@ public class RenderingHandler {
     public void playerRenderPre(RenderPlayerEvent.Pre event) {
         if (Disguises.getDisguises().containsKey(event.getEntityPlayer().getUniqueID())) {
             event.setCanceled(true);
+            try {
+                PlayerDisguise d = Disguises.getDisguises().get(event.getEntityPlayer().getUniqueID());
+                Render render = renderDisguiseMap.get(d.type);
+                render.doRender(event.getEntity(), event.getX(), event.getY(), event.getZ(), event.getEntity().rotationYaw, 1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -45,17 +70,8 @@ public class RenderingHandler {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void playerRenderPre(RenderPlayerEvent.Post event) {
-        if (Disguises.getDisguises().containsKey(event.getEntityPlayer().getUniqueID())) {
-            try {
-
-                PlayerDisguise d = Disguises.getDisguises().get(event.getEntityPlayer().getUniqueID());
-                Render render = map.get(d.type.getClass()).createRenderFor(Minecraft.getMinecraft().getRenderManager());
-                render.doRender(event.getEntity(), event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, event.getEntity().rotationYaw, 1);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    public void playerRenderPost(RenderPlayerEvent.Post event) {
+        
     }
 
 }
